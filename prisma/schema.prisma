@@ -1,0 +1,23 @@
+datasource pg {
+  provider = "postgresql"
+  url      = "postgresql://postgres:SuperSecret@localhost:5432/userDB?schema=test"
+}
+
+generator ts  {
+  provider = "prisma-client-js"
+}
+ 
+model User {
+  id              String       @id @default(cuid())
+  createdAt       DateTime  @default(now())
+  username        String 
+  email           String    @unique
+  posts           Post[]               
+}
+
+model Post {
+  id          String        @id @default(cuid())
+  title       String 
+  published   Boolean    @default(false)
+  createdAt       DateTime  @default(now())
+}
